@@ -12,12 +12,10 @@ const LINE_1 = "acier & inox";
 const LINE_2 = "industries";
 const SIZE = 14;
 
-// Inner Smile color palette
 const BUBBLES = [
-  { color: "#F4845F", posX: -0.55, posY: 0.3, radiusFactor: 1.0, speed: 1.0, phase: 0.0 },
-  { color: "#F7B267", posX: 0.1, posY: -0.3, radiusFactor: 1.05, speed: 0.85, phase: 1.8 },
-  { color: "#F25C54", posX: 0.65, posY: 0.2, radiusFactor: 0.95, speed: 1.15, phase: 3.5 },
-  { color: "#A8D8B9", posX: -0.15, posY: 0.55, radiusFactor: 0.9, speed: 0.95, phase: 5.2 }
+  { color: "#d1e0e5", posX: -0.12, posY: 0.08, radiusFactor: 1.05, speed: 1.0, phase: 0.0 },
+  { color: "#98dfc7", posX: 0.14, posY: -0.08, radiusFactor: 1.0, speed: 0.88, phase: 2.1 },
+  { color: "#5bbdaf", posX: 0.0, posY: 0.16, radiusFactor: 0.97, speed: 1.12, phase: 4.3 }
 ];
 
 export default function App() {
@@ -53,9 +51,10 @@ const Bubble = ({ color, posX, posY, radiusFactor, speed, phase }) => {
       <LayerMaterial
         color={color}
         lighting={"physical"}
-        transmission={1}
-        roughness={0}
-        thickness={2}
+        transmission={0}
+        roughness={0.15}
+        metalness={0.05}
+        alpha={0.82}
       >
         <Displace ref={displaceRef} strength={3} scale={0.25} offset={[phase, 0, 0]} />
       </LayerMaterial>
