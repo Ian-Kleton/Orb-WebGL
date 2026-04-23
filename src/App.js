@@ -12,6 +12,7 @@ const LINE_1 = "acier & inox";
 const LINE_2 = "industries";
 const SIZE = 14;
 
+// Solid, semi-opaque bubbles using the brand palette — overlapping with slight motion desync
 const BUBBLES = [
   { color: "#d1e0e5", posX: -0.12, posY: 0.08, radiusFactor: 1.05, speed: 1.0, phase: 0.0 },
   { color: "#98dfc7", posX: 0.14, posY: -0.08, radiusFactor: 1.0, speed: 0.88, phase: 2.1 },
