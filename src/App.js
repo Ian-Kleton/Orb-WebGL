@@ -12,7 +12,7 @@ const LINE_1 = "acier & inox";
 const LINE_2 = "industries";
 const SIZE = 14;
 
-// Solid, semi-opaque bubbles using the brand palette — overlapping with slight motion desync
+// Semi-transparent bubbles using the brand palette — overlapping with slight motion desync
 const BUBBLES = [
   { color: "#d1e0e5", posX: -0.12, posY: 0.08, radiusFactor: 1.05, speed: 1.0, phase: 0.0 },
   { color: "#98dfc7", posX: 0.14, posY: -0.08, radiusFactor: 1.0, speed: 0.88, phase: 2.1 },
@@ -28,6 +28,7 @@ export default function App() {
           {BUBBLES.map((props, i) => (
             <Bubble key={i} {...props} />
           ))}
+          <WrapperBubble />
           <Typography />
           <Environment preset="warehouse" />
         </Suspense>
@@ -55,9 +56,39 @@ const Bubble = ({ color, posX, posY, radiusFactor, speed, phase }) => {
         transmission={0}
         roughness={0.15}
         metalness={0.05}
-        alpha={0.82}
+        alpha={0.62}
+        transparent
+        depthWrite={false}
       >
         <Displace ref={displaceRef} strength={3} scale={0.25} offset={[phase, 0, 0]} />
+      </LayerMaterial>
+    </mesh>
+  );
+};
+
+const WrapperBubble = () => {
+  const displaceRef = useRef(null);
+  const { width } = useThree((state) => state.viewport);
+  const radius = (width / 8) * 1.45;
+
+  useFrame(({ _ }, dt) => {
+    displaceRef.current.offset.x += 4 * dt * 0.72;
+  });
+
+  return (
+    <mesh position={[0, 0, 0.5]}>
+      <sphereGeometry args={[radius, 128, 128]} />
+      <LayerMaterial
+        color={"#e5f4f2"}
+        lighting={"physical"}
+        transmission={0}
+        roughness={0.08}
+        metalness={0.1}
+        alpha={0.22}
+        transparent
+        depthWrite={false}
+      >
+        <Displace ref={displaceRef} strength={3} scale={0.22} offset={[1.5, 0, 0]} />
       </LayerMaterial>
     </mesh>
   );
